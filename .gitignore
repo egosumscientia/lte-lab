@@ -1,68 +1,133 @@
 # =========================================
-# Archivos y carpetas locales del proyecto
+# 📦 ARTEFACTOS DE COMPILACIÓN (BUILD) Y BINARIOS
 # =========================================
 
-# Base de datos (persistencia local)
+# Carpetas y archivos de compilación comunes
+build/
+install/
+bin/
+obj/
+*.o
+*.a
+*.so
+*.lo
+*.la
+*.dll
+*.exe
+
+# Logs y Pcap Generados durante la ejecución
+*.log
+*.pid
+*.pcap
+*.cap
+
+# Open5GS Específico
+# Ignora todo dentro de las carpetas de compilación/instalación/logs
+open5gs/build/
+open5gs/install/
+open5gs/*.log
+open5gs/*.pcap
+open5gs/config/*.log
+open5gs/config/*.pid
+open5gs/install/
+open5gs/build/
+
+# UERANSIM Específico
+# Ignora todo dentro de las carpetas de compilación/binarios/logs
+UERANSIM/build/
+UERANSIM/bin/
+UERANSIM/*.log
+UERANSIM/*.pcap
+UERANSIM/build/
+UERANSIM/bin/
+
+# =========================================
+# ⚙️ CONFIGURACIÓN LOCAL Y ENTORNO
+# =========================================
+
+# Variables de Entorno y Secretos (SIEMPRE IGNORAR)
+.env
+*.env
+.env.local
+.flaskenv
+
+# Archivos de configuración locales que anulan la configuración por defecto
+docker-compose.override.yml
+config/*.pid
+config/local.*
+config/*.conf.local
+
+# Base de datos (Persistencia Local)
 db/
 *.db
 *.sqlite
 *.sql
-
-# Archivos de configuración generados automáticamente
-config/*.log
-config/*.pid
-
-# Open5GS build artifacts
-open5gs/build/
-open5gs/install/
-open5gs/*.pcap
-open5gs/*.log
-
-# UERANSIM build artifacts
-UERANSIM/build/
-UERANSIM/bin/
-UERANSIM/*.pcap
-UERANSIM/*.log
+*.mysql.test
 
 # =========================================
-# Docker
+# 🐍 PYTHON Y DEPENDENCIAS
 # =========================================
-docker-compose.override.yml
-*.tar
-*.img
+# Entornos virtuales
+venv/
+env/
+/lib/python*/site-packages/
 
-# =========================================
-# Archivos de entorno
-# =========================================
-.env
-*.env
-
-# =========================================
-# Sistema operativo y editor
-# =========================================
-
-# Linux
-*~
-
-# VSCode
-.vscode/
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-
-# =========================================
-# Python
-# =========================================
+# Archivos compilados (bytecode)
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# =========================================
-# Git
-# =========================================
-.gitignore
+# Archivos generados por paquetes (Ej: Sphinx)
+*.egg-info
+.coverage
+htmlcov/
 
+# =========================================
+# 🐳 DOCKER Y CONTENEDORES
+# =========================================
+*.tar
+*.img
+*.cid
+.dockerignore
+!docker-compose.yml # Asegura que el archivo principal SI se rastrea
+
+# =========================================
+# 💻 EDITOR Y SISTEMA OPERATIVO
+# =========================================
+
+# macOS (OS X)
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Linux y Editores Comunes (backups)
+*~
+*.swp
+.idea/
+.vscode/
+
+# VSCode (Reglas más estrictas para ignorar toda la carpeta .vscode excepto los archivos esenciales)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/c_cpp_properties.json
+
+# =========================================
+# 🔗 EXCLUSIONES DEL SUBMÓDULO Y CONTENIDO DE TERCEROS
+# =========================================
+
+# Si ya eliminaste el submódulo 'srsRAN_4G' (como en la conversación anterior)
+# y lo quieres como carpeta normal, BORRA esta línea. Si aún es un submódulo, déjala.
+# srsRAN_4G/
+
+# El propio archivo .gitignore (a veces útil si se genera dinámicamente)
+# .gitignore
+
+# Ignora directorios enteros de repositorios de terceros si están copiados
 UERANSIM/
-open5gs/subprojects/libtins/
+open5gs/subprojects/libtins
