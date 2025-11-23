@@ -1,0 +1,68 @@
+# =========================================
+# Archivos y carpetas locales del proyecto
+# =========================================
+
+# Base de datos (persistencia local)
+db/
+*.db
+*.sqlite
+*.sql
+
+# Archivos de configuración generados automáticamente
+config/*.log
+config/*.pid
+
+# Open5GS build artifacts
+open5gs/build/
+open5gs/install/
+open5gs/*.pcap
+open5gs/*.log
+
+# UERANSIM build artifacts
+UERANSIM/build/
+UERANSIM/bin/
+UERANSIM/*.pcap
+UERANSIM/*.log
+
+# =========================================
+# Docker
+# =========================================
+docker-compose.override.yml
+*.tar
+*.img
+
+# =========================================
+# Archivos de entorno
+# =========================================
+.env
+*.env
+
+# =========================================
+# Sistema operativo y editor
+# =========================================
+
+# Linux
+*~
+
+# VSCode
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# =========================================
+# Python
+# =========================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================================
+# Git
+# =========================================
+.gitignore
+
+UERANSIM/
+open5gs/subprojects/libtins/
