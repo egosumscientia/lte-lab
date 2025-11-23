@@ -1,0 +1,81 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    image: mongo:4.4
+    container_name: mongodb
+    restart: always
+    volumes:
+      - ./db:/data/db
+    ports:
+      - "27017:27017"
+    network_mode: host
+
+  hss:
+    image: open5gs:local
+    pull_policy: never
+    container_name: open5gs-hss
+    command: ["open5gs-hssd"]
+    depends_on:
+      - mongodb
+    volumes:
+      - ./config/hss.yaml:/open5gs/config/hss.yaml
+    network_mode: host
+    restart: always
+
+  mme:
+    image: open5gs:local
+    pull_policy: never
+    container_name: open5gs-mme
+    command: ["open5gs-mmed"]
+    depends_on:
+      - hss
+    volumes:
+      - ./config/mme.yaml:/open5gs/config/mme.yaml
+    network_mode: host
+    restart: always
+
+  sgwc:
+    image: open5gs:local
+    pull_policy: never
+    container_name: open5gs-sgwc
+    command: ["open5gs-sgwcd"]
+    depends_on:
+      - mme
+    volumes:
+      - ./config/sgwc.yaml:/open5gs/config/sgwc.yaml
+    network_mode: host
+    restart: always
+
+  sgwu:
+    image: open5gs:local
+    pull_policy: never
+    container_name: open5gs-sgwu
+    command: ["open5gs-sgwud"]
+    depends_on:
+      - sgwc
+    volumes:
+      - ./config/sgwu.yaml:/open5gs/config/sgwu.yaml
+    network_mode: host
+    restart: always
+
+  ueransim-enb:
+    image: ueransim:lte
+    pull_policy: never
+    container_name: ueransim-enb
+    depends_on:
+      - mme
+    command: ["/UERANSIM/build/enb/lte-enb"]
+    network_mode: host
+    restart: always
+
+  ueransim-ue:
+    image: ueransim:lte
+    pull_policy: never
+    container_name: ueransim-ue
+    depends_on:
+      - ueransim-enb
+    command: ["/UERANSIM/build/ue/lte-ue"]
+    network_mode: host
+    restart: always
